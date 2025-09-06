@@ -3,6 +3,7 @@ import { TourList } from "@/components/tour-list";
 import { BASE_URL } from "@/lib/api";
 
 export default async function Home() {
+
     let data: any = null
 
     try {

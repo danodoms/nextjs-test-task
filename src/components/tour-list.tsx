@@ -2,6 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { BASE_URL } from "@/lib/api"
 import { Tour } from "@/lib/types"
+import { formatDate, formatPrice, getActivityColor } from "@/lib/utils"
 
 interface TourListProps {
     tours: Tour[]
@@ -12,34 +13,7 @@ export function TourList({ tours }: TourListProps) {
     const BASE_URL = " https://api.expeditionlapland.com/api"
 
 
-    const formatPrice = (price: number) => {
-        return new Intl.NumberFormat("sv-SE", {
-            style: "currency",
-            currency: "SEK",
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0,
-        }).format(price)
-    }
 
-    const formatDate = (dateString: string) => {
-        return new Date(dateString).toLocaleDateString("en-US", {
-            month: "short",
-            day: "numeric",
-        })
-    }
-
-    const getActivityColor = (activity: string) => {
-        switch (activity.toLowerCase()) {
-            case "light":
-                return "bg-green-100 text-green-800"
-            case "moderate":
-                return "bg-yellow-100 text-yellow-800"
-            case "heavy":
-                return "bg-red-100 text-red-800"
-            default:
-                return "bg-gray-100 text-gray-800"
-        }
-    }
 
     return (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
