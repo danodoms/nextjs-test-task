@@ -1,18 +1,12 @@
 import { TourList } from "@/components/tour-list";
 
-export default async function Home({
-    params,
-}: {
-    params: Promise<{ slug: string }>
-}) {
+import { BASE_URL } from "@/lib/api";
 
-
-    const BASE_URL = "https://api.expeditionlapland.com/api/atrakcjes?populate=*"
-
+export default async function Home() {
     let data: any = null
 
     try {
-        const response = await fetch(BASE_URL);
+        const response = await fetch(`${BASE_URL}/atrakcjes?populate=*`);
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);

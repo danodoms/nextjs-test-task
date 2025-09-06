@@ -1,33 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
-
-interface Tour {
-    id: number
-    documentId: string
-    title: string
-    slug: string
-    rating: number
-    location: string
-    duration: string
-    priceSEK: number
-    category: string
-    availableFrom: string
-    availableTo: string
-    groupOfPeople: number
-    kids: string
-    activity: string
-    createdAt: string
-    updatedAt: string
-    publishedAt: string
-    locale: string
-    coordinates: { DD: { lat: number; lng: number } }
-    description: Array<{ type: string; children: Array<{ type: string; text: string }> }>
-    shortDesc: string
-    imagePoster: { id: number; url: string }
-    imageCover: { id: number; url: string }
-    images: Array<{ id: number; url: string }>
-    localizations: any[]
-}
+import { BASE_URL } from "@/lib/api"
+import { Tour } from "@/lib/types"
 
 interface TourListProps {
     tours: Tour[]
@@ -67,10 +41,6 @@ export function TourList({ tours }: TourListProps) {
         }
     }
 
-    const handleClick = () => {
-
-    }
-
     return (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {tours.map((tour) => (
@@ -103,7 +73,7 @@ export function TourList({ tours }: TourListProps) {
 
                     <div className="p-6 pb-3">
                         <div className="flex items-start justify-between gap-2">
-                            <Link href={ } className="font-semibold text-lg leading-tight line-clamp-2">{tour.title}</Link>
+                            <Link href={`/atrakcje/${encodeURIComponent(tour.slug)}`} className="font-semibold text-lg leading-tight line-clamp-2">{tour.title}</Link>
                             <div className="flex items-center gap-1 text-sm font-medium shrink-0">
 
                                 {tour.rating}
