@@ -1,19 +1,13 @@
-import Image from "next/image"
-import Link from "next/link"
-import { BASE_URL } from "@/lib/api"
 import { Tour } from "@/lib/types"
 import { formatDate, formatPrice, getActivityColor } from "@/lib/utils"
+import Image from "next/image"
+import Link from "next/link"
 
 interface TourListProps {
     tours: Tour[]
 }
 
 export function TourList({ tours }: TourListProps) {
-
-    const BASE_URL = " https://api.expeditionlapland.com/api"
-
-
-
 
     return (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -89,9 +83,9 @@ export function TourList({ tours }: TourListProps) {
 
                         <div className="flex items-center justify-between">
                             <div className="text-2xl font-bold text-blue-600">{formatPrice(tour.priceSEK)}</div>
-                            <button className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors">
+                            <Link href={`/atrakcje/${encodeURIComponent(tour.slug)}`} className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 transition-colors">
                                 Book Now
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

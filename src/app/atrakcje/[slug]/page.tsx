@@ -87,15 +87,24 @@ export default async function TourPage({
                             <p className="text-gray-600 leading-relaxed mb-6">{tour.shortDesc}</p>
 
                             <div className="prose max-w-none">
-                                {/* {data.description.map((block, index) => (
-                                    <div key={index}>
-                                        {block.children.map((child, childIndex) => (
-                                            <p key={childIndex} className="text-gray-700 leading-relaxed">
-                                                {child.text}
-                                            </p>
-                                        ))}
-                                    </div>
-                                ))} */}
+                                {Array.isArray(tour?.description) && tour.description.length > 0 ? (
+                                    tour.description.map((block, index) => (
+                                        <div key={index}>
+                                            {Array.isArray(block?.children) && block.children.length > 0 ? (
+                                                block.children.map((child, childIndex) => (
+                                                    <p key={childIndex} className="text-gray-700 leading-relaxed">
+                                                        {child?.text || ""}
+                                                    </p>
+                                                ))
+                                            ) : (
+                                                <p className="text-gray-500">No content available</p>
+                                            )}
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p className="text-gray-500">No description provided for this tour.</p>
+                                )}
+
                             </div>
                         </div>
 
@@ -145,15 +154,21 @@ export default async function TourPage({
                         <div className="bg-white rounded-lg p-6 shadow-sm">
                             <h2 className="text-2xl font-bold mb-6">Gallery</h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                {/* {data.images.map((image, index) => (
-                                    <div key={image.id} className="aspect-video overflow-hidden rounded-lg">
-                                        <img
-                                            src={image.url || "/placeholder.svg"}
-                                            alt={`${data.title} - Image ${index + 1}`}
-                                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                                        />
+                                {Array.isArray(tour?.images) && tour.images.length > 0 ? (
+                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                        {tour.images.map((image, index) => (
+                                            <div key={image.id ?? index} className="aspect-video overflow-hidden rounded-lg">
+                                                <img
+                                                    src={image?.url || ""}
+                                                    alt={`${tour?.title || "Attraction"} - Image ${index + 1}`}
+                                                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                                                />
+                                            </div>
+                                        ))}
                                     </div>
-                                ))} */}
+                                ) : (
+                                    <p className="text-gray-500">No images available for this tour.</p>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -194,9 +209,13 @@ export default async function TourPage({
                                 <div className="flex items-center gap-2">
                                     <span className="text-sm text-gray-600">{tour.location}</span>
                                 </div>
-                                {/* <div className="text-xs text-gray-500">
-                                    Coordinates: {tour.coordinates.DD.lat}, {tour.coordinates.DD.lng}
-                                </div> */}
+                                <div className="text-xs text-gray-500">
+                                    {tour?.coordinates?.DD?.lat && tour?.coordinates?.DD?.lng ? (
+                                        <>Coordinates: {tour.coordinates.DD.lat}, {tour.coordinates.DD.lng}</>
+                                    ) : (
+                                        "Coordinates not available"
+                                    )}
+                                </div>
                                 <div className="w-full h-32 bg-gray-200 rounded-lg flex items-center justify-center">
                                     <span className="text-gray-500 text-sm">Map View</span>
                                 </div>
