@@ -6,9 +6,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 
-// Next.js will invalidate the cache when a
-// request comes in, at most once every 60 seconds.
-// ISR: revalidate every 60 seconds
+// Incremental Static Regeneration: revalidate every 60 seconds
 export const revalidate = 60
 
 
