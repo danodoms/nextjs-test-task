@@ -29,6 +29,7 @@ export default async function TourPage({
 
     const { slug } = await params
 
+    // Fetch single tour by slug with ISR enabled
     const tour: Tour | undefined = await fetch(
         `${BASE_URL}/atrakcjes?filters[slug][$eq]=${encodeURIComponent(slug)}&populate=*`,
         { next: { revalidate: 60 } }
@@ -43,6 +44,7 @@ export default async function TourPage({
             return undefined;
         });
 
+    // If no tour found, render 404
     if (!tour) {
         notFound();
     }
